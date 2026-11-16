@@ -68,6 +68,10 @@ const schemaData = {
     <link rel="canonical" href={canonicalURL} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
 
+    <!-- Preconnect to ImageKit CDN for Ultra-Fast Media Delivery & Scrubber Frames -->
+    <link rel="preconnect" href="https://ik.imagekit.io" crossorigin />
+    <link rel="dns-prefetch" href="https://ik.imagekit.io" />
+
     <!-- Preload Critical Fonts for Core Web Vitals (FCP / LCP) -->
     <link
       rel="preload"
