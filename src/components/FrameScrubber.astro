@@ -32,8 +32,8 @@ const initialPoster = `${videoFramePath}0001.webp`;
   data-total-frames={totalFrames}
   aria-label={overlayTitle}
 >
-  <!-- Sticky Window Pin -->
-  <div class="sticky top-0 h-screen max-h-[100dvh] w-full flex flex-col justify-between md:justify-center items-center overflow-hidden px-4 sm:px-6 lg:px-8 py-5 sm:py-8">
+  <!-- Sticky Window Pin (With pt-24 / sm:pt-28 to clear the 80px sticky navbar completely) -->
+  <div class="sticky top-0 h-screen max-h-[100dvh] w-full flex flex-col justify-between items-center overflow-hidden px-4 sm:px-6 lg:px-8 pt-24 pb-4 sm:pt-28 sm:pb-6">
     
     <!-- Atmospheric Background Ambient Glow -->
     <div class="absolute inset-0 pointer-events-none">
@@ -41,15 +41,15 @@ const initialPoster = `${videoFramePath}0001.webp`;
       <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#C9A24B_1px,transparent_1px)] [background-size:24px_24px]"></div>
     </div>
 
-    <!-- Mobile Top Header (In Top Black Space above Picture with Smooth Reveal Animation) -->
+    <!-- Mobile Top Header (In Top Space safely below the navbar with Smooth Reveal Animation) -->
     <div
       id="scrubber-mobile-header"
-      class="w-full max-w-xl mx-auto text-center pt-2 pb-1 md:hidden z-20 transition-all duration-700 ease-out opacity-0 -translate-y-3"
+      class="w-full max-w-xl mx-auto text-center pt-1 pb-1 md:hidden z-20 transition-all duration-700 ease-out opacity-0 -translate-y-3"
     >
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-green/80 backdrop-blur-md border border-brand-gold/40 text-brand-gold text-[10px] font-semibold uppercase tracking-widest mb-1.5 shadow-sm">
         <span>👑</span> {badgeText}
       </div>
-      <h3 class="font-heading text-2xl xs:text-3xl font-bold tracking-tight text-brand-cream leading-tight drop-shadow-md">
+      <h3 class="font-heading text-xl xs:text-2xl sm:text-3xl font-bold tracking-tight text-brand-cream leading-tight drop-shadow-md">
         {overlayTitle}
       </h3>
       <p class="font-body text-xs text-brand-cream/80 max-w-sm mx-auto mt-1 leading-snug drop-shadow-xs">
@@ -57,8 +57,8 @@ const initialPoster = `${videoFramePath}0001.webp`;
       </p>
     </div>
 
-    <!-- 16:9 Responsive Video Container (Middle Frame - Canvas Scroll-Scrubbing Preserved) -->
-    <div class="relative w-full max-w-[1360px] max-h-[60vh] md:max-h-[86vh] aspect-video rounded-2xl overflow-hidden border border-brand-gold/35 shadow-2xl bg-black group z-10 shrink-0">
+    <!-- 16:9 Responsive Video Container (Middle Frame - Sized to Never Overlap Navbar) -->
+    <div class="relative w-full max-w-[1280px] max-h-[50vh] sm:max-h-[56vh] md:max-h-[62vh] lg:max-h-[66vh] aspect-video rounded-2xl overflow-hidden border border-brand-gold/35 shadow-2xl bg-black group z-10 shrink-0 my-auto">
       
       <!-- HTML5 Canvas for Silky Smooth 60fps Frame Rendering -->
       <canvas
