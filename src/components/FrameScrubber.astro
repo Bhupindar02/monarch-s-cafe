@@ -118,39 +118,41 @@ const initialPoster = `${videoFramePath}0001.webp`;
 
     </div>
 
-    <!-- Below Picture Stats (In Bottom Black Space with Animated Counters) -->
+    <!-- Below Picture Stats (Minimalist Luxury Typography - No Boxes - Matches Reference) -->
     <div
       id="scrubber-stats-container"
-      class="w-full max-w-xl mx-auto pt-2 pb-1 z-20 transition-all duration-700 ease-out opacity-0 translate-y-3"
+      class="w-full max-w-2xl sm:max-w-3xl mx-auto pt-3 sm:pt-4 pb-1 z-20 transition-all duration-700 ease-out opacity-0 translate-y-3"
     >
-      <div class="grid grid-cols-3 gap-2 sm:gap-4 text-center">
-        <!-- Stat 1: 30+ Rooftop Seats -->
-        <div class="bg-brand-green-surface/85 backdrop-blur-md rounded-xl p-2.5 sm:p-3.5 border border-brand-gold/30 shadow-lg hover:border-brand-gold/60 transition-colors">
-          <div class="font-heading text-lg xs:text-xl sm:text-2xl font-bold text-brand-gold flex items-center justify-center">
-            <span class="stat-counter" data-target="30">0</span><span class="text-brand-gold">+</span>
+      <div class="grid grid-cols-3 gap-2 sm:gap-6 md:gap-10 text-center">
+        <!-- Stat 1: 200+ ROOFTOP SEATS -->
+        <div class="flex flex-col items-center justify-center px-1">
+          <div class="font-heading text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-normal text-brand-gold leading-none tracking-tight flex items-baseline justify-center">
+            <span class="stat-counter" data-target="200">0</span>
+            <span class="text-lg xs:text-xl sm:text-2xl font-light text-brand-gold/90 ml-0.5">+</span>
           </div>
-          <div class="text-[10px] sm:text-xs text-brand-cream/85 font-medium leading-tight mt-0.5">
+          <div class="text-[9px] xs:text-[10px] sm:text-xs tracking-[0.16em] sm:tracking-[0.2em] uppercase font-semibold text-brand-cream/75 mt-1.5 sm:mt-2.5">
             Rooftop Seats
           </div>
         </div>
 
-        <!-- Stat 2: 365 Sunset Views a Year -->
-        <div class="bg-brand-green-surface/85 backdrop-blur-md rounded-xl p-2.5 sm:p-3.5 border border-brand-gold/30 shadow-lg hover:border-brand-gold/60 transition-colors">
-          <div class="font-heading text-lg xs:text-xl sm:text-2xl font-bold text-brand-gold flex items-center justify-center">
-            <span class="stat-counter" data-target="365">0</span>
+        <!-- Stat 2: 50+ SPECIALTY COFFEES -->
+        <div class="flex flex-col items-center justify-center px-1">
+          <div class="font-heading text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-normal text-brand-gold leading-none tracking-tight flex items-baseline justify-center">
+            <span class="stat-counter" data-target="50">0</span>
+            <span class="text-lg xs:text-xl sm:text-2xl font-light text-brand-gold/90 ml-0.5">+</span>
           </div>
-          <div class="text-[10px] sm:text-xs text-brand-cream/85 font-medium leading-tight mt-0.5">
-            Sunset Views / Yr
+          <div class="text-[9px] xs:text-[10px] sm:text-xs tracking-[0.16em] sm:tracking-[0.2em] uppercase font-semibold text-brand-cream/75 mt-1.5 sm:mt-2.5">
+            Specialty Coffees
           </div>
         </div>
 
-        <!-- Stat 3: 50+ Menu Items -->
-        <div class="bg-brand-green-surface/85 backdrop-blur-md rounded-xl p-2.5 sm:p-3.5 border border-brand-gold/30 shadow-lg hover:border-brand-gold/60 transition-colors">
-          <div class="font-heading text-lg xs:text-xl sm:text-2xl font-bold text-brand-gold flex items-center justify-center">
-            <span class="stat-counter" data-target="50">0</span><span class="text-brand-gold">+</span>
+        <!-- Stat 3: 365 SUNSET VIEWS A YEAR -->
+        <div class="flex flex-col items-center justify-center px-1">
+          <div class="font-heading text-2xl xs:text-3xl sm:text-4xl md:text-5xl font-normal text-brand-gold leading-none tracking-tight flex items-baseline justify-center">
+            <span class="stat-counter" data-target="365">0</span>
           </div>
-          <div class="text-[10px] sm:text-xs text-brand-cream/85 font-medium leading-tight mt-0.5">
-            Menu Items
+          <div class="text-[9px] xs:text-[10px] sm:text-xs tracking-[0.16em] sm:tracking-[0.2em] uppercase font-semibold text-brand-cream/75 mt-1.5 sm:mt-2.5">
+            Sunset Views A Year
           </div>
         </div>
       </div>
@@ -312,8 +314,8 @@ const initialPoster = `${videoFramePath}0001.webp`;
           progressBadge.textContent = `${targetFrame}/${total}`;
         }
 
-        // Trigger smooth reveal and counter animations when section is entered
-        if (rect.top <= window.innerHeight * 0.9 && rect.bottom >= 0) {
+        // Trigger smooth reveal and start counting ONCE when section arrives in full view
+        if (!countersAnimated && rect.top <= window.innerHeight * 0.35 && rect.bottom >= window.innerHeight * 0.4) {
           revealMobileElements();
           animateCounters();
         }
@@ -333,19 +335,6 @@ const initialPoster = `${videoFramePath}0001.webp`;
     // Preload first 20 frames so start of scrub is instant
     for (let i = 2; i <= 20; i++) {
       loadFrame(i);
-    }
-
-    // Intersection Observer for instant responsive trigger
-    if ('IntersectionObserver' in window) {
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            revealMobileElements();
-            animateCounters();
-          }
-        });
-      }, { threshold: 0.05 });
-      observer.observe(track);
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true });
