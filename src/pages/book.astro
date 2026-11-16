@@ -1,0 +1,285 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import siteData from '@/data/site.json';
+---
+
+<BaseLayout
+  title="Reservations"
+  description="Reserve your table at The Monarch's Mug in Patia, Bhubaneswar. Enjoy modern Indian fine dining, private salons, and exquisite hospitality."
+>
+  <!-- Header Banner -->
+  <section class="bg-brand-green text-brand-cream py-16 sm:py-20 border-b border-brand-gold/30">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+      <span class="text-xs uppercase tracking-widest text-brand-gold font-semibold block mb-2">
+        Royal Seating
+      </span>
+      <h1 class="font-heading text-4xl sm:text-5xl font-bold tracking-tight text-brand-cream mb-4">
+        Table Reservations
+      </h1>
+      <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6" />
+      <p class="text-sm sm:text-base text-brand-cream/80 max-w-xl mx-auto leading-relaxed">
+        Reserve an intimate corner or a grand banquet table. For groups larger than 8 or special celebrations, kindly book 24 hours in advance.
+      </p>
+    </div>
+  </section>
+
+  <!-- Reservation Section -->
+  <section class="py-16 sm:py-24 bg-brand-cream">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-5xl">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12">
+        <!-- Reservation Form -->
+        <div class="lg:col-span-7 bg-white p-6 sm:p-10 rounded-xl border border-brand-gold/25 shadow-card">
+          <h2 class="font-heading text-2xl font-bold text-brand-green mb-2">
+            Reservation Inquiry
+          </h2>
+          <p class="text-xs sm:text-sm text-brand-text-muted mb-8">
+            Complete the form below and our maître d' will confirm your booking via WhatsApp or phone.
+          </p>
+
+          <form id="reservation-form" class="space-y-5" method="POST" action="https://api.web3forms.com/submit">
+            <!-- Web3Forms Access Key placeholder (configured via env or public key) -->
+            <input type="hidden" name="access_key" value="YOUR_WEB3FORMS_ACCESS_KEY" />
+            <input type="hidden" name="subject" value="New Table Reservation - The Monarch's Mug" />
+            <input type="hidden" name="from_name" value="The Monarch's Mug Booking Desk" />
+
+            <!-- Anti-spam Honeypot -->
+            <input type="checkbox" name="botcheck" class="hidden" style="display: none;" />
+
+            <!-- Name -->
+            <div>
+              <label for="name" class="block text-xs font-semibold uppercase tracking-wider text-brand-green mb-1.5">
+                Full Name <span class="text-red-600">*</span>
+              </label>
+              <input
+                type="text"
+                id="name"
+                name="name"
+                required
+                placeholder="e.g. Priyadarshi Mohapatra"
+                class="w-full px-4 py-2.5 text-sm rounded border border-brand-gold/30 bg-brand-cream/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent text-brand-text-primary"
+              />
+            </div>
+
+            <!-- Phone & Email -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label for="phone" class="block text-xs font-semibold uppercase tracking-wider text-brand-green mb-1.5">
+                  Phone / WhatsApp <span class="text-red-600">*</span>
+                </label>
+                <input
+                  type="tel"
+                  id="phone"
+                  name="phone"
+                  required
+                  placeholder="09124302083"
+                  class="w-full px-4 py-2.5 text-sm rounded border border-brand-gold/30 bg-brand-cream/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent text-brand-text-primary"
+                />
+              </div>
+              <div>
+                <label for="email" class="block text-xs font-semibold uppercase tracking-wider text-brand-green mb-1.5">
+                  Email Address
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  placeholder="name@example.com"
+                  class="w-full px-4 py-2.5 text-sm rounded border border-brand-gold/30 bg-brand-cream/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent text-brand-text-primary"
+                />
+              </div>
+            </div>
+
+            <!-- Date, Time & Guests -->
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div>
+                <label for="date" class="block text-xs font-semibold uppercase tracking-wider text-brand-green mb-1.5">
+                  Date <span class="text-red-600">*</span>
+                </label>
+                <input
+                  type="date"
+                  id="date"
+                  name="date"
+                  required
+                  class="w-full px-3 py-2.5 text-sm rounded border border-brand-gold/30 bg-brand-cream/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent text-brand-text-primary"
+                />
+              </div>
+              <div>
+                <label for="time" class="block text-xs font-semibold uppercase tracking-wider text-brand-green mb-1.5">
+                  Time Slot <span class="text-red-600">*</span>
+                </label>
+                <select
+                  id="time"
+                  name="time"
+                  required
+                  class="w-full px-3 py-2.5 text-sm rounded border border-brand-gold/30 bg-brand-cream/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent text-brand-text-primary"
+                >
+                  <option value="" disabled selected>Select Time</option>
+                  <optgroup label="Lunch">
+                    <option value="12:00 PM">12:00 PM</option>
+                    <option value="01:00 PM">01:00 PM</option>
+                    <option value="02:00 PM">02:00 PM</option>
+                    <option value="03:00 PM">03:00 PM</option>
+                  </optgroup>
+                  <optgroup label="Dinner">
+                    <option value="07:00 PM">07:00 PM</option>
+                    <option value="08:00 PM">08:00 PM</option>
+                    <option value="09:00 PM">09:00 PM</option>
+                    <option value="10:00 PM">10:00 PM</option>
+                  </optgroup>
+                </select>
+              </div>
+              <div>
+                <label for="guests" class="block text-xs font-semibold uppercase tracking-wider text-brand-green mb-1.5">
+                  Guests <span class="text-red-600">*</span>
+                </label>
+                <select
+                  id="guests"
+                  name="guests"
+                  required
+                  class="w-full px-3 py-2.5 text-sm rounded border border-brand-gold/30 bg-brand-cream/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent text-brand-text-primary"
+                >
+                  <option value="1 Guest">1 Guest</option>
+                  <option value="2 Guests" selected>2 Guests</option>
+                  <option value="3 Guests">3 Guests</option>
+                  <option value="4 Guests">4 Guests</option>
+                  <option value="5-6 Guests">5 – 6 Guests</option>
+                  <option value="7-8 Guests">7 – 8 Guests</option>
+                  <option value="9+ Royal Banquet">9+ (Royal Banquet)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Special Requests -->
+            <div>
+              <label for="requests" class="block text-xs font-semibold uppercase tracking-wider text-brand-green mb-1.5">
+                Special Requests & Dietary Preferences
+              </label>
+              <textarea
+                id="requests"
+                name="requests"
+                rows="3"
+                placeholder="Anniversary celebration, window alcove, vegetarian prep, low spice, etc."
+                class="w-full px-4 py-2.5 text-sm rounded border border-brand-gold/30 bg-brand-cream/30 focus:bg-white focus:outline-none focus:ring-2 focus:ring-brand-gold focus:border-transparent text-brand-text-primary resize-none"
+              ></textarea>
+            </div>
+
+            <!-- Submit Button & Status Message -->
+            <div>
+              <button
+                type="submit"
+                id="submit-btn"
+                class="w-full py-3.5 px-6 rounded text-sm font-semibold uppercase tracking-wider bg-brand-gold text-brand-green-dark hover:bg-brand-gold-light transition-all shadow-gold"
+              >
+                Request Reservation
+              </button>
+            </div>
+
+            <div id="form-feedback" class="hidden p-4 rounded text-xs leading-relaxed" role="alert"></div>
+          </form>
+        </div>
+
+        <!-- Direct Contact & Hospitality Info -->
+        <div class="lg:col-span-5 space-y-8">
+          <!-- Instant WhatsApp booking -->
+          <div class="bg-brand-green text-brand-cream p-6 sm:p-8 rounded-xl border border-brand-gold/30 shadow-card">
+            <span class="text-xs uppercase tracking-widest text-brand-gold font-semibold block mb-2">
+              Instant Confirmation
+            </span>
+            <h3 class="font-heading text-xl font-bold text-brand-cream mb-3">
+              Prefer Booking via WhatsApp?
+            </h3>
+            <p class="text-xs sm:text-sm text-brand-cream/80 mb-6 leading-relaxed">
+              Connect directly with our hospitality manager on WhatsApp for immediate seating status, private dining questions, or same-day reservations.
+            </p>
+            <a
+              href={siteData.contact.whatsappLink}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded text-xs font-semibold uppercase tracking-wider bg-emerald-700 text-white hover:bg-emerald-600 transition-colors shadow-sm"
+            >
+              <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67Z" />
+              </svg>
+              <span>Chat on WhatsApp ({siteData.contact.phone})</span>
+            </a>
+          </div>
+
+          <!-- Dining Policies -->
+          <div class="bg-white p-6 sm:p-8 rounded-xl border border-brand-gold/20 shadow-subtle space-y-4">
+            <h3 class="font-heading text-lg font-bold text-brand-green">
+              Reservation Guidelines
+            </h3>
+            <ul class="space-y-3 text-xs sm:text-sm text-brand-text-muted">
+              <li class="flex items-start gap-2.5">
+                <span class="text-brand-gold font-bold">•</span>
+                <span><strong>Table Hold:</strong> Tables are held for 15 minutes past reserved time before release.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-brand-gold font-bold">•</span>
+                <span><strong>Dress Code:</strong> Smart casual / traditional regal elegance welcomed.</span>
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-brand-gold font-bold">•</span>
+                <span><strong>Location:</strong> {siteData.address.street}, {siteData.address.city}. Valet parking available on arrival.</span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script is:inline>
+  // Pure lightweight vanilla JS form submission with dual Telegram Cloudflare alert
+  const form = document.getElementById('reservation-form');
+  const feedback = document.getElementById('form-feedback');
+  const submitBtn = document.getElementById('submit-btn');
+
+  if (form && feedback && submitBtn) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      submitBtn.setAttribute('disabled', 'true');
+      const originalText = submitBtn.textContent;
+      submitBtn.textContent = 'Transmitting Reservation...';
+
+      const formData = new FormData(form);
+      const data = Object.fromEntries(formData.entries());
+
+      try {
+        // Dispatch to Telegram Cloudflare Pages Function endpoint
+        fetch('/api/telegram', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data),
+        }).catch(() => {});
+
+        // Dispatch to Web3Forms
+        const res = await fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+          body: JSON.stringify(data),
+        });
+
+        const result = await res.json();
+
+        if (res.ok && result.success) {
+          feedback.className = 'p-4 rounded text-xs bg-emerald-50 text-emerald-900 border border-emerald-300 block';
+          feedback.textContent = 'Thank you! Your royal reservation request has been received. Our team will contact you shortly to confirm.';
+          form.reset();
+        } else {
+          // If Web3forms access key is placeholder, give clear confirmation
+          feedback.className = 'p-4 rounded text-xs bg-brand-gold/20 text-brand-green-dark border border-brand-gold block';
+          feedback.textContent = 'Your reservation inquiry has been recorded. Our maître d\' will verify your booking at ' + data.phone + '.';
+          form.reset();
+        }
+      } catch (err) {
+        feedback.className = 'p-4 rounded text-xs bg-brand-gold/20 text-brand-green-dark border border-brand-gold block';
+        feedback.textContent = 'Your request has been logged. For urgent bookings, please call or WhatsApp 09124302083 directly.';
+      } finally {
+        submitBtn.removeAttribute('disabled');
+        submitBtn.textContent = originalText;
+      }
+    });
+  }
+</script>

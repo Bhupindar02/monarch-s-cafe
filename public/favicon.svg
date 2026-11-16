@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <rect width="64" height="64" rx="14" fill="#1F3D2B"/>
+  <!-- Regal Crown and Mug Motif in Gold -->
+  <path d="M18 24L24 38H40L46 24L37 29L32 18L27 29L18 24Z" fill="#C9A24B"/>
+  <path d="M22 41H42C42 47.6274 36.6274 53 30 53H24C22.8954 53 22 52.1046 22 51V41Z" fill="#C9A24B" fill-opacity="0.9"/>
+  <path d="M42 43H45C47.2091 43 49 44.7909 49 47C49 49.2091 47.2091 51 45 51H42" stroke="#C9A24B" stroke-width="2.5" stroke-linecap="round"/>
+</svg>

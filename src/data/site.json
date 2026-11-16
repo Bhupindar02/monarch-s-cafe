@@ -1,0 +1,60 @@
+{
+  "name": "The Monarch's Mug",
+  "tagline": "Modern Indian Fine Dining & Artisanal Brews",
+  "description": "Experience regal hospitality and modern Indian fine dining in Patia, Bhubaneswar. Exquisite seasonal dishes, artisanal teas, and warm royal elegance.",
+  "cuisine": "Modern Indian Fine Dining",
+  "url": "https://themonarchsmug.pages.dev",
+  "address": {
+    "street": "near Chandaka Industrial Estate, near Sidheswar Temple, Patia, Patharagadia",
+    "city": "Bhubaneswar",
+    "state": "Odisha",
+    "postalCode": "751024",
+    "country": "India",
+    "formatted": "near Chandaka Industrial Estate, near Sidheswar Temple, Patia, Patharagadia, Odisha 751024"
+  },
+  "contact": {
+    "phone": "09124302083",
+    "phoneClean": "+919124302083",
+    "whatsapp": "09124302083",
+    "whatsappLink": "https://wa.me/919124302083",
+    "email": "support@murgan"
+  },
+  "hours": {
+    "display": [
+      {
+        "days": "Monday – Thursday",
+        "time": "12:00 PM – 11:00 PM"
+      },
+      {
+        "days": "Friday – Sunday",
+        "time": "12:00 PM – 11:30 PM"
+      }
+    ],
+    "lunch": "12:00 PM – 3:30 PM",
+    "dinner": "7:00 PM – 11:00 PM",
+    "openingHoursSpecification": [
+      {
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday"],
+        "opens": "12:00",
+        "closes": "23:00"
+      },
+      {
+        "dayOfWeek": ["Friday", "Saturday", "Sunday"],
+        "opens": "12:00",
+        "closes": "23:30"
+      }
+    ]
+  },
+  "timezone": "Asia/Kolkata",
+  "social": {
+    "instagram": "https://instagram.com/themonarchsmug",
+    "facebook": "https://facebook.com/themonarchsmug",
+    "tripadvisor": "https://tripadvisor.com",
+    "googleMaps": "https://maps.app.goo.gl/zytmqoTuVTAanq8J8"
+  },
+  "brand": {
+    "primaryColor": "#1F3D2B",
+    "accentColor": "#C9A24B",
+    "backgroundColor": "#FAF6EE"
+  }
+}

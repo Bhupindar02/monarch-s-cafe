@@ -1,0 +1,355 @@
+---
+export interface Props {
+  videoFramePath?: string;
+  totalFrames?: number;
+  overlayTitle?: string;
+  overlayDescription?: string;
+  badgeText?: string;
+}
+
+const {
+  videoFramePath = 'https://ik.imagekit.io/cbub6m43fi/murgan/frames1_',
+  totalFrames = 300,
+  overlayTitle = 'The Art of the Royal Pour',
+  overlayDescription = 'From single-estate coffee beans to hand-thrown ceramic mugs — experience the timeless craftsmanship of our signature brews.',
+  badgeText = 'Crafted with Passion',
+} = Astro.props;
+
+// Initial preview poster frame (Frame 1)
+const initialPoster = `${videoFramePath}0001.webp`;
+---
+
+<!-- Visual Divider -->
+<div class="w-full flex items-center justify-center my-6 sm:my-8 px-4" aria-hidden="true">
+  <div class="h-px bg-gradient-to-r from-transparent via-brand-gold/40 to-transparent w-full max-w-6xl"></div>
+</div>
+
+<!-- Frame Scrubbing Section: 350vh height scroll track with sticky 16:9 container -->
+<section
+  id="frame-scrubber-track"
+  class="relative w-full h-[320vh] sm:h-[360vh] bg-brand-green-dark"
+  data-frame-base={videoFramePath}
+  data-total-frames={totalFrames}
+  aria-label={overlayTitle}
+>
+  <!-- Sticky Window Pin -->
+  <div class="sticky top-0 h-screen max-h-[100dvh] w-full flex flex-col justify-between md:justify-center items-center overflow-hidden px-4 sm:px-6 lg:px-8 py-5 sm:py-8">
+    
+    <!-- Atmospheric Background Ambient Glow -->
+    <div class="absolute inset-0 pointer-events-none">
+      <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,#1F3D2B_0%,#14291D_80%)] opacity-95"></div>
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#C9A24B_1px,transparent_1px)] [background-size:24px_24px]"></div>
+    </div>
+
+    <!-- Mobile Top Header (In Top Black Space above Picture with Smooth Reveal Animation) -->
+    <div
+      id="scrubber-mobile-header"
+      class="w-full max-w-xl mx-auto text-center pt-2 pb-1 md:hidden z-20 transition-all duration-700 ease-out opacity-0 -translate-y-3"
+    >
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-brand-green/80 backdrop-blur-md border border-brand-gold/40 text-brand-gold text-[10px] font-semibold uppercase tracking-widest mb-1.5 shadow-sm">
+        <span>👑</span> {badgeText}
+      </div>
+      <h3 class="font-heading text-2xl xs:text-3xl font-bold tracking-tight text-brand-cream leading-tight drop-shadow-md">
+        {overlayTitle}
+      </h3>
+      <p class="font-body text-xs text-brand-cream/80 max-w-sm mx-auto mt-1 leading-snug drop-shadow-xs">
+        {overlayDescription}
+      </p>
+    </div>
+
+    <!-- 16:9 Responsive Video Container (Middle Frame - Canvas Scroll-Scrubbing Preserved) -->
+    <div class="relative w-full max-w-[1360px] max-h-[60vh] md:max-h-[86vh] aspect-video rounded-2xl overflow-hidden border border-brand-gold/35 shadow-2xl bg-black group z-10 shrink-0">
+      
+      <!-- HTML5 Canvas for Silky Smooth 60fps Frame Rendering -->
+      <canvas
+        id="scrubber-canvas"
+        width="1920"
+        height="1080"
+        class="w-full h-full object-cover block"
+      ></canvas>
+
+      <!-- Preload / Fallback Image (Frame 1) to avoid flash while initializing -->
+      <img
+        id="scrubber-poster"
+        src={initialPoster}
+        alt={overlayTitle}
+        width="1920"
+        height="1080"
+        loading="eager"
+        fetchpriority="high"
+        class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300"
+      />
+
+      <!-- Top Overlay Inside Picture: Royal Badge & Frame Counter -->
+      <div class="absolute top-3 sm:top-5 inset-x-3 sm:inset-x-6 flex items-center justify-between z-20 pointer-events-none">
+        <span class="hidden md:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-brand-green-dark/85 backdrop-blur-md border border-brand-gold/40 text-brand-gold text-xs font-semibold uppercase tracking-widest shadow-md">
+          <span>👑</span> {badgeText}
+        </span>
+        <span class="inline-flex items-center gap-1.5 px-2.5 py-1 sm:px-3 sm:py-1.5 rounded-full bg-brand-green-dark/90 backdrop-blur-md border border-brand-gold/40 text-brand-cream/90 text-[10px] sm:text-xs tracking-wider shadow-md ml-auto">
+          <svg class="w-3 h-3 sm:w-3.5 sm:h-3.5 text-brand-gold animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+          </svg>
+          <span class="hidden sm:inline">Scroll to Scrub</span>
+          <span id="scrubber-progress-badge" class="font-mono text-brand-gold font-bold text-[10px]">1/{totalFrames}</span>
+        </span>
+      </div>
+
+      <!-- Desktop Bottom Gradient Overlay (Hidden on Mobile so picture is completely clear) -->
+      <div class="hidden md:block absolute bottom-0 inset-x-0 bg-gradient-to-t from-brand-green-dark via-brand-green-dark/85 to-transparent pt-16 sm:pt-24 pb-6 sm:pb-8 px-6 sm:px-10 text-center z-20 pointer-events-none">
+        <h3 class="font-heading text-2xl sm:text-4xl lg:text-5xl font-bold tracking-tight text-brand-cream leading-tight drop-shadow-md">
+          {overlayTitle}
+        </h3>
+        <p class="font-body text-xs sm:text-sm text-brand-cream/85 max-w-2xl mx-auto mt-2 leading-relaxed font-light drop-shadow-xs">
+          {overlayDescription}
+        </p>
+
+        <!-- Subtle Gold Progress Track (Desktop) -->
+        <div class="w-32 sm:w-48 h-1 bg-brand-gold/20 rounded-full mx-auto mt-4 overflow-hidden">
+          <div id="scrubber-progress-bar" class="h-full bg-brand-gold rounded-full w-0 transition-all duration-75"></div>
+        </div>
+      </div>
+
+      <!-- Mobile In-Frame Progress Track (Clean bottom line without blocking picture) -->
+      <div class="md:hidden absolute bottom-2.5 inset-x-4 z-20 pointer-events-none">
+        <div class="w-28 h-1 bg-brand-gold/25 backdrop-blur-xs rounded-full mx-auto overflow-hidden">
+          <div id="scrubber-progress-bar-mobile" class="h-full bg-brand-gold rounded-full w-0 transition-all duration-75"></div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Below Picture Stats (In Bottom Black Space with Animated Counters) -->
+    <div
+      id="scrubber-stats-container"
+      class="w-full max-w-xl mx-auto pt-2 pb-1 z-20 transition-all duration-700 ease-out opacity-0 translate-y-3"
+    >
+      <div class="grid grid-cols-3 gap-2 sm:gap-4 text-center">
+        <!-- Stat 1: 30+ Rooftop Seats -->
+        <div class="bg-brand-green-surface/85 backdrop-blur-md rounded-xl p-2.5 sm:p-3.5 border border-brand-gold/30 shadow-lg hover:border-brand-gold/60 transition-colors">
+          <div class="font-heading text-lg xs:text-xl sm:text-2xl font-bold text-brand-gold flex items-center justify-center">
+            <span class="stat-counter" data-target="30">0</span><span class="text-brand-gold">+</span>
+          </div>
+          <div class="text-[10px] sm:text-xs text-brand-cream/85 font-medium leading-tight mt-0.5">
+            Rooftop Seats
+          </div>
+        </div>
+
+        <!-- Stat 2: 365 Sunset Views a Year -->
+        <div class="bg-brand-green-surface/85 backdrop-blur-md rounded-xl p-2.5 sm:p-3.5 border border-brand-gold/30 shadow-lg hover:border-brand-gold/60 transition-colors">
+          <div class="font-heading text-lg xs:text-xl sm:text-2xl font-bold text-brand-gold flex items-center justify-center">
+            <span class="stat-counter" data-target="365">0</span>
+          </div>
+          <div class="text-[10px] sm:text-xs text-brand-cream/85 font-medium leading-tight mt-0.5">
+            Sunset Views / Yr
+          </div>
+        </div>
+
+        <!-- Stat 3: 50+ Menu Items -->
+        <div class="bg-brand-green-surface/85 backdrop-blur-md rounded-xl p-2.5 sm:p-3.5 border border-brand-gold/30 shadow-lg hover:border-brand-gold/60 transition-colors">
+          <div class="font-heading text-lg xs:text-xl sm:text-2xl font-bold text-brand-gold flex items-center justify-center">
+            <span class="stat-counter" data-target="50">0</span><span class="text-brand-gold">+</span>
+          </div>
+          <div class="text-[10px] sm:text-xs text-brand-cream/85 font-medium leading-tight mt-0.5">
+            Menu Items
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Visual Divider End -->
+<div class="w-full flex items-center justify-center my-6 sm:my-8 px-4" aria-hidden="true">
+  <div class="h-px bg-gradient-to-r from-transparent via-brand-gold/40 to-transparent w-full max-w-6xl"></div>
+</div>
+
+<script is:inline>
+  // High-performance canvas frame scrubber with progressive preloading & zero runtime dependencies (<40 lines)
+  (() => {
+    const track = document.getElementById('frame-scrubber-track');
+    const canvas = document.getElementById('scrubber-canvas');
+    const poster = document.getElementById('scrubber-poster');
+    const progressBar = document.getElementById('scrubber-progress-bar');
+    const progressBarMobile = document.getElementById('scrubber-progress-bar-mobile');
+    const progressBadge = document.getElementById('scrubber-progress-badge');
+    const mobileHeader = document.getElementById('scrubber-mobile-header');
+    const statsContainer = document.getElementById('scrubber-stats-container');
+
+    if (!track || !canvas) return;
+
+    // Smooth count-up animation for stats (0 to target)
+    let countersAnimated = false;
+    const animateCounters = () => {
+      if (countersAnimated) return;
+      countersAnimated = true;
+
+      const counters = document.querySelectorAll('.stat-counter');
+      const duration = 1800; // ms
+      const startTime = performance.now();
+
+      const update = (now) => {
+        const elapsed = now - startTime;
+        const p = Math.min(1, elapsed / duration);
+        // Ease-out cubic for realistic deceleration
+        const ease = 1 - Math.pow(1 - p, 3);
+
+        counters.forEach((el) => {
+          const target = parseInt(el.getAttribute('data-target') || '0', 10);
+          const current = Math.floor(ease * target);
+          el.textContent = current.toString();
+        });
+
+        if (p < 1) {
+          requestAnimationFrame(update);
+        } else {
+          counters.forEach((el) => {
+            el.textContent = el.getAttribute('data-target') || '0';
+          });
+        }
+      };
+
+      requestAnimationFrame(update);
+    };
+
+    // Smooth reveal animation for mobile header and stats
+    const revealMobileElements = () => {
+      if (mobileHeader) {
+        mobileHeader.classList.remove('opacity-0', '-translate-y-3');
+        mobileHeader.classList.add('opacity-100', 'translate-y-0');
+      }
+      if (statsContainer) {
+        statsContainer.classList.remove('opacity-0', 'translate-y-3');
+        statsContainer.classList.add('opacity-100', 'translate-y-0');
+      }
+    };
+
+    const ctx = canvas.getContext('2d', { alpha: false });
+    const frameBase = track.getAttribute('data-frame-base');
+    const total = parseInt(track.getAttribute('data-total-frames') || '300', 10);
+
+    const formatIndex = (idx) => String(idx).padStart(4, '0');
+    const getFrameUrl = (idx) => `${frameBase}${formatIndex(idx)}.webp`;
+
+    // Cache map for preloaded HTMLImageElement
+    const frameCache = new Map();
+    let currentRenderedFrame = -1;
+    let isDrawing = false;
+
+    // Load a single frame and cache it
+    const loadFrame = (idx) => {
+      if (idx < 1 || idx > total) return null;
+      if (frameCache.has(idx)) return frameCache.get(idx);
+
+      const img = new Image();
+      img.decoding = 'async';
+      img.src = getFrameUrl(idx);
+      frameCache.set(idx, img);
+      return img;
+    };
+
+    // Render frame to canvas
+    const drawFrame = (idx) => {
+      if (idx === currentRenderedFrame) return;
+
+      const img = loadFrame(idx);
+      if (!img) return;
+
+      if (img.complete && img.naturalWidth > 0) {
+        ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+        currentRenderedFrame = idx;
+        if (poster && poster.style.opacity !== '0') {
+          poster.style.opacity = '0';
+          setTimeout(() => { poster.style.display = 'none'; }, 300);
+        }
+      } else {
+        img.onload = () => {
+          if (idx === currentRenderedFrame || isDrawing) {
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            currentRenderedFrame = idx;
+            if (poster && poster.style.opacity !== '0') {
+              poster.style.opacity = '0';
+              setTimeout(() => { poster.style.display = 'none'; }, 300);
+            }
+          }
+        };
+      }
+    };
+
+    // Progressive queue loader: loads neighboring frames around current view
+    const preloadNeighbors = (centerIdx) => {
+      const radius = 12;
+      for (let i = 1; i <= radius; i++) {
+        if (centerIdx + i <= total) loadFrame(centerIdx + i);
+        if (centerIdx - i >= 1) loadFrame(centerIdx - i);
+      }
+    };
+
+    // Scroll calculation
+    const handleScroll = () => {
+      if (isDrawing) return;
+      isDrawing = true;
+
+      requestAnimationFrame(() => {
+        const rect = track.getBoundingClientRect();
+        const maxScroll = track.offsetHeight - window.innerHeight;
+        const currentScroll = -rect.top;
+        const progress = Math.max(0, Math.min(1, currentScroll / maxScroll));
+
+        const targetFrame = Math.min(total, Math.max(1, Math.round(progress * (total - 1)) + 1));
+
+        drawFrame(targetFrame);
+        preloadNeighbors(targetFrame);
+
+        // Update progress indicators
+        if (progressBar) {
+          progressBar.style.width = `${(progress * 100).toFixed(1)}%`;
+        }
+        if (progressBarMobile) {
+          progressBarMobile.style.width = `${(progress * 100).toFixed(1)}%`;
+        }
+        if (progressBadge) {
+          progressBadge.textContent = `${targetFrame}/${total}`;
+        }
+
+        // Trigger smooth reveal and counter animations when section is entered
+        if (rect.top <= window.innerHeight * 0.9 && rect.bottom >= 0) {
+          revealMobileElements();
+          animateCounters();
+        }
+
+        isDrawing = false;
+      });
+    };
+
+    // Initial setup: load and draw frame 1 immediately
+    const img1 = loadFrame(1);
+    if (img1.complete) {
+      drawFrame(1);
+    } else {
+      img1.onload = () => drawFrame(1);
+    }
+
+    // Preload first 20 frames so start of scrub is instant
+    for (let i = 2; i <= 20; i++) {
+      loadFrame(i);
+    }
+
+    // Intersection Observer for instant responsive trigger
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            revealMobileElements();
+            animateCounters();
+          }
+        });
+      }, { threshold: 0.05 });
+      observer.observe(track);
+    }
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    window.addEventListener('resize', handleScroll, { passive: true });
+    handleScroll();
+  })();
+</script>

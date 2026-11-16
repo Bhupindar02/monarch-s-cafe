@@ -1,0 +1,137 @@
+{
+  "categories": [
+    {
+      "id": "signatures",
+      "name": "Monarch's Signatures",
+      "description": "Signature creations combining regal Indian heritage with contemporary gastronomy",
+      "items": [
+        {
+          "name": "Awadhi Smoked Lamb Shank (Nihari)",
+          "description": "Slow-braised tender lamb shank in aromatic brown onion broth, saffron, and stone-ground spices.",
+          "price": "₹820",
+          "dietary": "Non-Veg",
+          "spicyLevel": 2,
+          "featured": true
+        },
+        {
+          "name": "Chilika Prawn Malai Truffle Curry",
+          "description": "Fresh Odisha bay prawns simmered in tender coconut milk, fresh turmeric, and winter black truffle drizzle.",
+          "price": "₹780",
+          "dietary": "Seafood",
+          "spicyLevel": 1,
+          "featured": true
+        },
+        {
+          "name": "Royal Dal-e-Monarch",
+          "description": "Black lentils slow cooked overnight on charcoal, churned with white butter and sun-dried fenugreek.",
+          "price": "₹490",
+          "dietary": "Veg",
+          "spicyLevel": 1,
+          "featured": true
+        }
+      ]
+    },
+    {
+      "id": "small-plates",
+      "name": "Small Plates & Kebabs",
+      "description": "Artfully roasted skewers and crisp heritage bites",
+      "items": [
+        {
+          "name": "Pahadi Nadru & Chenna Galouti",
+          "description": "Melt-in-mouth lotus stem and local artisanal cottage cheese patties, smoked with sandalwood on saffron sheermaal.",
+          "price": "₹460",
+          "dietary": "Veg",
+          "spicyLevel": 1
+        },
+        {
+          "name": "Bhatti Murgh Tikka",
+          "description": "Charred chicken supremes steeped in black pepper, crushed coriander seeds, and hung curd.",
+          "price": "₹540",
+          "dietary": "Non-Veg",
+          "spicyLevel": 2
+        },
+        {
+          "name": "Ghee Roast Calamari & Crushed Pepper",
+          "description": "Tender squid flash-seared in Kundapur byadgi chilli paste, curry leaves, and clarified butter.",
+          "price": "₹620",
+          "dietary": "Seafood",
+          "spicyLevel": 3
+        }
+      ]
+    },
+    {
+      "id": "mains",
+      "name": "Curries & Biryanis",
+      "description": "Richly layered curries and fragrant slow-dum rice delicacies",
+      "items": [
+        {
+          "name": "Dum Murgh Awadhi Pulao",
+          "description": "Long-grain basmati rice, tender chicken morsels, ittar-infused saffron essence, sealed in earthen pot.",
+          "price": "₹650",
+          "dietary": "Non-Veg",
+          "spicyLevel": 2
+        },
+        {
+          "name": "Paneer Lababdar en Croûte",
+          "description": "Creamy paneer cubes in velvety tomato-cashew reduction served with crisp flake pastry top.",
+          "price": "₹520",
+          "dietary": "Veg",
+          "spicyLevel": 1
+        },
+        {
+          "name": "Wild Morel & Asparagus Korma",
+          "description": "Himalayan gucchi (morels) stuffed with spiced khoya in an almond and cardamom silk gravy.",
+          "price": "₹690",
+          "dietary": "Veg",
+          "spicyLevel": 1
+        }
+      ]
+    },
+    {
+      "id": "beverages",
+      "name": "Artisanal Mugs & Elixirs",
+      "description": "House-blended coffees, single-estate teas, and botanical infusions",
+      "items": [
+        {
+          "name": "The Monarch's Gold Brew",
+          "description": "Single-estate Araku Valley coffee poured over warm condensed cardamom milk, dusted with 24k edible gold flakes.",
+          "price": "₹280",
+          "dietary": "Veg",
+          "featured": true
+        },
+        {
+          "name": "Kashmiri Kahwa Mug",
+          "description": "Whole green tea leaves infused with saffron strands, crushed almonds, cinnamon quill, and wild forest honey.",
+          "price": "₹240",
+          "dietary": "Veg"
+        },
+        {
+          "name": "Smoked Jamun & Rooh Afza Fizz",
+          "description": "Spiced black plum purée, organic rose cordial, sparkling water, and pink Himalayan rock salt.",
+          "price": "₹260",
+          "dietary": "Veg"
+        }
+      ]
+    },
+    {
+      "id": "desserts",
+      "name": "Sweet Endings",
+      "description": "Heritage Odia and royal sweets reinvented",
+      "items": [
+        {
+          "name": "Deconstructed Pahala Rasagola & Pistachio Crisp",
+          "description": "Warm fresh chhena sponge in cardamom whey nectar, paired with pistachio tuile and silver leaf.",
+          "price": "₹340",
+          "dietary": "Veg"
+        },
+        {
+          "name": "Baked Saffron Chenna Poda Tart",
+          "description": "The quintessential Odisha caramelized cheesecake baked into a flaky almond crust with jaggery caramel.",
+          "price": "₹380",
+          "dietary": "Veg",
+          "featured": true
+        }
+      ]
+    }
+  ]
+}

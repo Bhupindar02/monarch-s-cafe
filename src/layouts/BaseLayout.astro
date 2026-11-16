@@ -1,0 +1,131 @@
+---
+import siteData from '@/data/site.json';
+import Header from '@/components/Header.astro';
+import Footer from '@/components/Footer.astro';
+import '@/styles/global.css';
+
+export interface Props {
+  title?: string;
+  description?: string;
+  canonical?: string;
+  ogImage?: string;
+  noindex?: boolean;
+}
+
+const {
+  title,
+  description = siteData.description,
+  canonical,
+  ogImage = '/og-image.jpg',
+  noindex = false,
+} = Astro.props;
+
+const pageTitle = title ? `${title} | ${siteData.name}` : `${siteData.name} | Modern Indian Fine Dining`;
+const canonicalURL = canonical || new URL(Astro.url.pathname, siteData.url).href;
+const socialImageURL = new URL(ogImage, siteData.url).href;
+
+const schemaData = {
+  "@context": "https://schema.org",
+  "@type": "Restaurant",
+  "name": siteData.name,
+  "image": socialImageURL,
+  "@id": `${siteData.url}#restaurant`,
+  "url": siteData.url,
+  "telephone": siteData.contact.phoneClean,
+  "email": siteData.contact.email,
+  "priceRange": "₹₹₹",
+  "servesCuisine": [siteData.cuisine, "Fine Dining", "Modern Indian", "Artisanal Beverages"],
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": siteData.address.street,
+    "addressLocality": siteData.address.city,
+    "addressRegion": siteData.address.state,
+    "postalCode": siteData.address.postalCode,
+    "addressCountry": "IN"
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": "20.3533",
+    "longitude": "85.8178"
+  },
+  "openingHoursSpecification": siteData.hours.openingHoursSpecification.map((spec) => ({
+    "@type": "OpeningHoursSpecification",
+    "dayOfWeek": spec.dayOfWeek,
+    "opens": spec.opens,
+    "closes": spec.closes
+  }))
+};
+---
+
+<!doctype html>
+<html lang="en" class="bg-brand-cream text-brand-text-primary">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1F3D2B" />
+    <meta name="color-scheme" content="light" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Preload Critical Fonts for Core Web Vitals (FCP / LCP) -->
+    <link
+      rel="preload"
+      href="/fonts/inter-400.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="preload"
+      href="/fonts/playfair-display-700.woff2"
+      as="font"
+      type="font/woff2"
+      crossorigin="anonymous"
+    />
+
+    <!-- Primary Meta Tags -->
+    <title>{pageTitle}</title>
+    <meta name="title" content={pageTitle} />
+    <meta name="description" content={description} />
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:site_name" content={siteData.name} />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={socialImageURL} />
+    <meta property="og:locale" content="en_IN" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content={canonicalURL} />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={socialImageURL} />
+
+    <!-- Schema.org Structured Data -->
+    <script type="application/ld+json" set:html={JSON.stringify(schemaData)} />
+  </head>
+  <body class="min-h-screen flex flex-col font-body antialiased selection:bg-brand-gold selection:text-brand-green-dark">
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 z-50 px-4 py-2 bg-brand-gold text-brand-green-dark font-semibold rounded shadow-gold outline-none"
+    >
+      Skip to main content
+    </a>
+    
+    <slot name="header">
+      <Header />
+    </slot>
+
+    <main id="main-content" class="flex-grow">
+      <slot />
+    </main>
+
+    <slot name="footer">
+      <Footer />
+    </slot>
+  </body>
+</html>

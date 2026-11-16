@@ -1,0 +1,387 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import siteData from '@/data/site.json';
+import menuData from '@/data/menu.json';
+import reviewsData from '@/data/reviews.json';
+import FrameScrubber from '@/components/FrameScrubber.astro';
+
+const featuredItems = menuData.categories
+  .flatMap((cat) => cat.items)
+  .filter((item) => item.featured)
+  .slice(0, 4);
+---
+
+<BaseLayout
+  title="Home"
+  description="Experience regal hospitality and modern Indian fine dining in Patia, Bhubaneswar. Exquisite seasonal dishes, artisanal teas, and warm royal elegance."
+>
+  <!-- Hero Section: Background Image with Left-Aligned Content -->
+  <section class="relative bg-brand-green-dark text-brand-cream overflow-hidden -mt-20 pt-28 sm:pt-36 lg:pt-40 pb-20 sm:pb-28 lg:pb-36 border-b border-brand-gold/30 min-h-[620px] lg:min-h-[720px] flex items-center">
+    
+    <!-- Background Hero WebP Image with Eager Loading (ImageKit CDN) -->
+    <div class="absolute inset-0 z-0">
+      <img
+        src="https://ik.imagekit.io/cbub6m43fi/murgan%20assets/hero.webp"
+        alt="The Monarch's Mug royal dining ambiance and artisanal brew"
+        width="1584"
+        height="672"
+        loading="eager"
+        fetchpriority="high"
+        decoding="async"
+        class="w-full h-full object-cover object-center lg:object-[75%_center] opacity-80"
+      />
+      <!-- Gradient Overlays: Deep Emerald on Left for Text Contrast, Fading to Reveal Image on Right -->
+      <div class="absolute inset-0 bg-gradient-to-r from-brand-green-dark via-brand-green-dark/90 to-brand-green-dark/40 lg:to-transparent" />
+      <div class="absolute inset-0 bg-gradient-to-t from-brand-green-dark via-transparent to-brand-green-dark/70 lg:to-brand-green-dark/50" />
+      <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#C9A24B_1px,transparent_1px)] [background-size:24px_24px] pointer-events-none" />
+    </div>
+
+    <!-- Foreground Content: Kept on the Left Side (Like Reference Banner) -->
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <div class="max-w-2xl text-left">
+        
+        <!-- Eyebrow with Dots -->
+        <div class="flex items-center gap-2 sm:gap-2.5 mb-4 text-xs sm:text-sm font-semibold tracking-widest uppercase text-brand-gold">
+          <span>FRESH</span>
+          <span class="text-brand-gold/50">•</span>
+          <span>ARTISANAL</span>
+          <span class="text-brand-gold/50">•</span>
+          <span>REGAL</span>
+        </div>
+
+        <!-- Single H1 per page: Bold Sans/Serif with Golden Italic Accent -->
+        <h1 class="font-heading text-4xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-brand-cream leading-[1.1] mb-5 drop-shadow-md">
+          Food <br />
+          Made with <span class="italic text-brand-gold font-normal">Royalty</span>
+        </h1>
+
+        <!-- Descriptive Paragraph -->
+        <p class="text-sm sm:text-base lg:text-lg text-brand-cream/85 mb-8 max-w-xl leading-relaxed font-light drop-shadow-xs">
+          From slow-braised Awadhi gravies to artisanal single-estate brews, we serve the finest modern Indian gastronomy crafted with regional ingredients and a whole lot of soul.
+        </p>
+
+        <!-- Action Buttons (Pill Buttons) -->
+        <div class="flex flex-wrap items-center gap-4 mb-10">
+          <a
+            href="/book"
+            class="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider bg-brand-gold text-brand-green-dark hover:bg-brand-gold-light transition-all shadow-gold transform hover:-translate-y-0.5 focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 focus-visible:ring-offset-brand-green focus-visible:outline-none"
+          >
+            <span>Reserve Table</span>
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+          <a
+            href="/menu"
+            class="inline-flex items-center justify-center px-6 py-3.5 rounded-full text-xs sm:text-sm font-semibold uppercase tracking-wider border border-brand-gold/60 text-brand-cream hover:bg-brand-gold/15 hover:border-brand-gold transition-colors focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:ring-offset-2 focus-visible:ring-offset-brand-green focus-visible:outline-none backdrop-blur-xs"
+          >
+            <span>Explore Menu</span>
+          </a>
+        </div>
+
+        <!-- Quick Info Strip -->
+        <div class="pt-6 border-t border-brand-gold/25 grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs max-w-lg">
+          <div>
+            <span class="block text-brand-gold font-semibold uppercase text-[10px] tracking-wider mb-0.5">Location</span>
+            <span class="text-brand-cream/85">Patia, Patharagadia</span>
+          </div>
+          <div>
+            <span class="block text-brand-gold font-semibold uppercase text-[10px] tracking-wider mb-0.5">Dining Hours</span>
+            <span class="text-brand-cream/85">12:00 PM – 11:30 PM</span>
+          </div>
+          <div class="col-span-2 sm:col-span-1">
+            <span class="block text-brand-gold font-semibold uppercase text-[10px] tracking-wider mb-0.5">Guest Rating</span>
+            <span class="text-brand-cream/85"><strong class="text-brand-gold">★ {reviewsData.rating}</strong> ({reviewsData.reviewCount}+ Reviews)</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Featured Signatures -->
+  <section class="py-16 sm:py-24 bg-brand-cream">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-14">
+        <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase block mb-2">Culinary Artistry</span>
+        <h2 class="font-heading text-3xl sm:text-4xl text-brand-green font-bold">
+          The Monarch’s Signatures
+        </h2>
+        <div class="w-16 h-0.5 bg-brand-gold mx-auto mt-4 mb-4" />
+        <p class="text-sm sm:text-base text-brand-text-muted">
+          Each dish is an ode to regal kitchens of the subcontinent, elevated with artisanal techniques and contemporary presentation.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        {featuredItems.map((item) => (
+          <article class="bg-white rounded-lg p-6 sm:p-8 border border-brand-gold/20 shadow-subtle hover:shadow-card transition-shadow flex flex-col justify-between">
+            <div>
+              <div class="flex items-start justify-between gap-4 mb-3">
+                <h3 class="font-heading text-xl font-bold text-brand-green">
+                  {item.name}
+                </h3>
+                <span class="font-heading font-semibold text-lg text-brand-gold whitespace-nowrap">
+                  {item.price}
+                </span>
+              </div>
+              <p class="text-sm text-brand-text-muted leading-relaxed mb-4">
+                {item.description}
+              </p>
+            </div>
+            <div class="pt-4 border-t border-brand-cream-muted flex items-center justify-between text-xs">
+              <span class={`inline-block px-2.5 py-1 rounded font-medium ${
+                item.dietary === 'Veg' ? 'bg-emerald-50 text-emerald-800' : 'bg-amber-50 text-amber-900'
+              }`}>
+                {item.dietary}
+              </span>
+              <a href="/menu" class="text-brand-green font-semibold hover:text-brand-gold transition-colors focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none rounded">
+                View in Menu &rarr;
+              </a>
+            </div>
+          </article>
+        ))}
+      </div>
+
+      <div class="mt-12 text-center">
+        <a
+          href="/menu"
+          class="inline-flex items-center gap-2 px-6 py-3 rounded text-sm font-semibold uppercase tracking-wider bg-brand-green text-brand-cream hover:bg-brand-green-light transition-colors focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none"
+        >
+          <span>View Complete A La Carte Menu</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Scroll-Scrubbed Brewing Experience -->
+  <FrameScrubber
+    videoFramePath="https://ik.imagekit.io/cbub6m43fi/murgan/frames1_"
+    totalFrames={300}
+    overlayTitle="The Art of the Royal Pour"
+    overlayDescription="From single-estate Araku beans to hand-thrown ceramic mugs — immerse in the timeless craftsmanship of our signature brews."
+    badgeText="Royal Brewing Ceremony"
+  />
+
+  <!-- Atmosphere / Story Section -->
+  <section class="py-16 sm:py-24 bg-brand-cream-muted/50 border-y border-brand-gold/20">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+        <div class="lg:col-span-7 space-y-6">
+          <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase block">The Experience</span>
+          <h2 class="font-heading text-3xl sm:text-4xl text-brand-green font-bold leading-tight">
+            A Regal Haven in the Heart of Patia
+          </h2>
+          <p class="text-sm sm:text-base text-brand-text-muted leading-relaxed">
+            Conveniently nestled near Chandaka Industrial Estate and the historic Sidheswar Temple, {siteData.name} was envisioned as an intimate royal salon. We bring together modern epicurean innovation and the warmth of Odishan hospitality.
+          </p>
+          <p class="text-sm sm:text-base text-brand-text-muted leading-relaxed">
+            From our hand-beaten copper serveware and ceramic monarch mugs to our curated spice blends sourced directly from regional farmers, every nuance is tuned to pamper your palate.
+          </p>
+          <div class="pt-2 flex flex-wrap gap-4">
+            <div class="flex items-center gap-2 text-xs font-semibold text-brand-green uppercase tracking-wider">
+              <span class="w-2 h-2 rounded-full bg-brand-gold" />
+              Private Dining Salons
+            </div>
+            <div class="flex items-center gap-2 text-xs font-semibold text-brand-green uppercase tracking-wider">
+              <span class="w-2 h-2 rounded-full bg-brand-gold" />
+              Artisanal Teas & Coffees
+            </div>
+            <div class="flex items-center gap-2 text-xs font-semibold text-brand-green uppercase tracking-wider">
+              <span class="w-2 h-2 rounded-full bg-brand-gold" />
+              Valet & Reserved Parking
+            </div>
+          </div>
+        </div>
+
+        <div class="lg:col-span-5 bg-brand-green text-brand-cream p-8 rounded-lg shadow-card border border-brand-gold/30">
+          <h3 class="font-heading text-2xl font-bold text-brand-gold mb-4">
+            Plan Your Visit
+          </h3>
+          <div class="space-y-4 text-xs sm:text-sm text-brand-cream/80">
+            <div>
+              <strong class="text-brand-cream block mb-1">Address:</strong>
+              <p>{siteData.address.formatted}</p>
+            </div>
+            <div>
+              <strong class="text-brand-cream block mb-1">Direct Helpline:</strong>
+              <a href={`tel:${siteData.contact.phoneClean}`} class="text-brand-gold font-medium hover:underline focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none rounded">
+                {siteData.contact.phone}
+              </a>
+            </div>
+            <div>
+              <strong class="text-brand-cream block mb-1">Email Desk:</strong>
+              <a href={`mailto:${siteData.contact.email}`} class="text-brand-cream/90 hover:underline focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none rounded">
+                {siteData.contact.email}
+              </a>
+            </div>
+          </div>
+          <div class="mt-6 pt-4 border-t border-brand-green-surface">
+            <a
+              href="/book"
+              class="block w-full py-2.5 text-center text-xs font-semibold uppercase tracking-wider bg-brand-gold text-brand-green-dark rounded hover:bg-brand-gold-light transition-colors focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none"
+            >
+              Book A Table
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Real Guest Reviews: Uniform Cards in Smooth Horizontal Scroll -->
+  <section class="py-16 sm:py-24 bg-brand-cream border-t border-brand-gold/15 overflow-hidden">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      
+      <!-- Section Header with Title, Stats & Scroll Controls -->
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
+        <div class="max-w-xl text-left">
+          <span class="text-xs font-semibold tracking-widest text-brand-gold uppercase block mb-2">
+            Authentic Google Reviews
+          </span>
+          <h2 class="font-heading text-3xl sm:text-4xl text-brand-green font-bold">
+            Real Voices, Royal Experiences
+          </h2>
+          <div class="w-16 h-0.5 bg-brand-gold mt-3 mb-3" />
+          <p class="text-sm text-brand-text-muted">
+            Read what patrons say about our rooftop ambiance, culinary excellence, and warm hospitality in Patia.
+          </p>
+          <div class="mt-3 flex items-center gap-2 text-xs font-semibold text-brand-green">
+            <span class="flex items-center text-brand-gold">
+              ★★★★★
+            </span>
+            <span>4.9 / 5.0 Rating</span>
+            <span class="text-brand-text-muted/60">•</span>
+            <span class="text-brand-text-muted">180+ Reviews on Google</span>
+          </div>
+        </div>
+
+        <!-- Carousel Navigation Controls -->
+        <div class="flex items-center gap-3 self-start md:self-end">
+          <button
+            id="rev-prev"
+            type="button"
+            class="w-10 h-10 rounded-full border border-brand-gold/40 bg-white text-brand-green flex items-center justify-center hover:bg-brand-gold hover:text-brand-green-dark hover:border-brand-gold transition-all duration-200 shadow-sm focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none"
+            aria-label="Scroll left through reviews"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
+            </svg>
+          </button>
+          <button
+            id="rev-next"
+            type="button"
+            class="w-10 h-10 rounded-full border border-brand-gold/40 bg-white text-brand-green flex items-center justify-center hover:bg-brand-gold hover:text-brand-green-dark hover:border-brand-gold transition-all duration-200 shadow-sm focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none"
+            aria-label="Scroll right through reviews"
+          >
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Horizontal Scrollable Container with Uniform Cards -->
+      <div
+        id="reviews-carousel"
+        class="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory pb-6 pt-2 no-scrollbar focus-visible:outline-none"
+        tabindex="0"
+        aria-label="Guest Reviews Carousel"
+      >
+        {reviewsData.reviews.map((rev) => {
+          const initials = rev.author
+            .split(' ')
+            .map((n) => n[0])
+            .join('')
+            .slice(0, 2)
+            .toUpperCase();
+
+          return (
+            <article class="w-[310px] sm:w-[350px] md:w-[380px] h-[340px] flex-shrink-0 bg-white rounded-2xl p-6 sm:p-7 border border-brand-gold/25 shadow-subtle hover:shadow-card hover:border-brand-gold/50 transition-all flex flex-col justify-between snap-start">
+              
+              <!-- Card Header: Profile, Name, Badge, Date & Stars -->
+              <div>
+                <div class="flex items-center justify-between gap-3 mb-3">
+                  <div class="flex items-center gap-3 min-w-0">
+                    <div class="w-10 h-10 rounded-full bg-brand-green/10 border border-brand-gold/40 text-brand-green font-bold text-xs flex items-center justify-center flex-shrink-0">
+                      {initials}
+                    </div>
+                    <div class="min-w-0">
+                      <h3 class="font-heading font-bold text-brand-green text-sm sm:text-base leading-tight truncate">
+                        {rev.author}
+                      </h3>
+                      <p class="text-[11px] text-brand-text-muted/75 truncate">
+                        {rev.badge}
+                      </p>
+                    </div>
+                  </div>
+                  <!-- Google G icon -->
+                  <div class="w-5 h-5 flex-shrink-0" title="Google Verified Review">
+                    <svg viewBox="0 0 24 24" class="w-5 h-5" aria-hidden="true">
+                      <path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+                      <path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+                      <path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+                      <path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+                    </svg>
+                  </div>
+                </div>
+
+                <!-- Star Rating & Relative Date -->
+                <div class="flex items-center justify-between text-xs mb-3">
+                  <div class="flex items-center gap-1 text-brand-gold" aria-label={`Rating: ${rev.rating} out of 5 stars`}>
+                    {Array.from({ length: rev.rating }).map(() => (
+                      <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 20 20" aria-hidden="true">
+                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
+                      </svg>
+                    ))}
+                  </div>
+                  <span class="text-[11px] text-brand-text-muted/65">{rev.date}</span>
+                </div>
+              </div>
+
+              <!-- Card Body: Uniform Review Comment -->
+              <div class="flex-grow flex items-center">
+                <p class="text-xs sm:text-sm text-brand-text-muted leading-relaxed line-clamp-5 italic">
+                  "{rev.comment}"
+                </p>
+              </div>
+
+              <!-- Card Footer: Google Review Verification Link -->
+              <div class="pt-3 border-t border-brand-cream-muted flex items-center justify-between text-[11px] text-brand-text-muted/80">
+                <span class="inline-flex items-center gap-1 font-medium text-brand-green">
+                  <svg class="w-3 h-3 text-emerald-600 fill-current" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd" />
+                  </svg>
+                  Verified Patron
+                </span>
+                <span class="text-brand-gold font-medium">Google Review</span>
+              </div>
+            </article>
+          );
+        })}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Lightweight Script for Reviews Carousel Controls -->
+  <script is:inline>
+    (() => {
+      const carousel = document.getElementById('reviews-carousel');
+      const prev = document.getElementById('rev-prev');
+      const next = document.getElementById('rev-next');
+
+      if (carousel && prev && next) {
+        prev.addEventListener('click', () => {
+          carousel.scrollBy({ left: -360, behavior: 'smooth' });
+        });
+        next.addEventListener('click', () => {
+          carousel.scrollBy({ left: 360, behavior: 'smooth' });
+        });
+      }
+    })();
+  </script>
+</BaseLayout>

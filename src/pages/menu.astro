@@ -1,0 +1,131 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import siteData from '@/data/site.json';
+import menuData from '@/data/menu.json';
+---
+
+<BaseLayout
+  title="Curated Menu"
+  description="Explore the curated modern Indian fine dining menu at The Monarch's Mug in Patia. Royal curries, artisanal teas, and signature culinary creations."
+>
+  <!-- Header Banner -->
+  <section class="bg-brand-green text-brand-cream py-16 sm:py-20 border-b border-brand-gold/30">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+      <span class="text-xs uppercase tracking-widest text-brand-gold font-semibold block mb-2">
+        Culinary Repertoire
+      </span>
+      <h1 class="font-heading text-4xl sm:text-5xl font-bold tracking-tight text-brand-cream mb-4">
+        The Monarch’s Menu
+      </h1>
+      <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6" />
+      <p class="text-sm sm:text-base text-brand-cream/80 max-w-xl mx-auto leading-relaxed">
+        A symphony of indigenous Indian botanicals, slow-braised curries, charcoal skewers, and single-estate artisanal brews.
+      </p>
+
+      <!-- Dietary legend -->
+      <div class="mt-8 flex flex-wrap justify-center items-center gap-6 text-xs text-brand-cream/70">
+        <span class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block" /> Vegetarian
+        </span>
+        <span class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block" /> Non-Vegetarian
+        </span>
+        <span class="flex items-center gap-2">
+          <span class="w-2.5 h-2.5 rounded-full bg-cyan-400 inline-block" /> Bay Seafood
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Menu Navigation Anchors -->
+  <div class="sticky top-[80px] z-30 bg-brand-cream/95 backdrop-blur border-b border-brand-gold/20 py-3">
+    <div class="container mx-auto px-4 sm:px-6 flex items-center justify-center gap-3 sm:gap-6 overflow-x-auto no-scrollbar text-xs font-semibold uppercase tracking-wider">
+      {menuData.categories.map((cat) => (
+        <a
+          href={`#${cat.id}`}
+          class="whitespace-nowrap px-3 py-1.5 rounded-full text-brand-green hover:bg-brand-gold/20 hover:text-brand-green-dark transition-colors"
+        >
+          {cat.name}
+        </a>
+      ))}
+    </div>
+  </div>
+
+  <!-- Menu Listing -->
+  <section class="py-16 sm:py-20 bg-brand-cream">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 max-w-4xl space-y-20">
+      {menuData.categories.map((cat) => (
+        <section id={cat.id} class="scroll-mt-36">
+          <div class="border-b border-brand-gold/30 pb-4 mb-8">
+            <h2 class="font-heading text-2xl sm:text-3xl font-bold text-brand-green">
+              {cat.name}
+            </h2>
+            <p class="text-xs sm:text-sm text-brand-text-muted mt-1">
+              {cat.description}
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {cat.items.map((item) => (
+              <article class="bg-white p-5 sm:p-6 rounded-lg border border-brand-gold/15 shadow-subtle hover:border-brand-gold/40 transition-colors flex flex-col justify-between">
+                <div>
+                  <div class="flex items-start justify-between gap-4 mb-2">
+                    <h3 class="font-heading text-lg font-bold text-brand-green">
+                      {item.name}
+                    </h3>
+                    <span class="font-heading font-semibold text-brand-gold whitespace-nowrap">
+                      {item.price}
+                    </span>
+                  </div>
+                  <p class="text-xs sm:text-sm text-brand-text-muted leading-relaxed mb-4">
+                    {item.description}
+                  </p>
+                </div>
+                <div class="pt-3 border-t border-brand-cream-muted flex items-center justify-between text-[11px]">
+                  <span class={`px-2 py-0.5 rounded font-medium ${
+                    item.dietary === 'Veg'
+                      ? 'bg-emerald-50 text-emerald-800'
+                      : item.dietary === 'Seafood'
+                      ? 'bg-cyan-50 text-cyan-800'
+                      : 'bg-amber-50 text-amber-900'
+                  }`}>
+                    {item.dietary}
+                  </span>
+                  {item.featured && (
+                    <span class="text-brand-gold font-semibold uppercase tracking-wider">
+                      Chef's Choice
+                    </span>
+                  )}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+      ))}
+
+      <!-- Bottom Reservation Banner -->
+      <div class="mt-16 bg-brand-green text-brand-cream rounded-xl p-8 sm:p-12 text-center border border-brand-gold/40 shadow-card">
+        <h2 class="font-heading text-2xl sm:text-3xl font-bold text-brand-gold mb-3">
+          Join Us for an Unforgettable Dining Experience
+        </h2>
+        <p class="text-xs sm:text-sm text-brand-cream/80 max-w-lg mx-auto mb-6">
+          Dietary restrictions, private seating, or chef-tasting celebrations can be accommodated with advance reservations.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="/book"
+            class="w-full sm:w-auto px-8 py-3 rounded text-xs font-semibold uppercase tracking-wider bg-brand-gold text-brand-green-dark hover:bg-brand-gold-light transition-colors shadow-gold"
+          >
+            Reserve Your Table
+          </a>
+          <a
+            href={`tel:${siteData.contact.phoneClean}`}
+            class="w-full sm:w-auto px-8 py-3 rounded text-xs font-semibold uppercase tracking-wider border border-brand-gold/40 text-brand-cream hover:bg-brand-gold/10 transition-colors"
+          >
+            Call {siteData.contact.phone}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

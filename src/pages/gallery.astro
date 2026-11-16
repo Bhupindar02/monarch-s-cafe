@@ -1,0 +1,235 @@
+---
+import BaseLayout from '@/layouts/BaseLayout.astro';
+import siteData from '@/data/site.json';
+
+const galleryItems = [
+  {
+    image: 'https://ik.imagekit.io/cbub6m43fi/murgan%20assets/gallery-1-rooftop.webp',
+    width: 1024,
+    height: 768,
+    title: 'The Starlit Rooftop Terrace',
+    category: 'Rooftop Dining',
+    categorySlug: 'rooftop',
+    description: 'Breathtaking open-sky seating framed by fairy-lit railings, handwoven wicker armchairs, and artisan geometric flooring for magical evenings.',
+    span: 'lg:col-span-1',
+    aspect: 'aspect-[4/3]',
+  },
+  {
+    image: 'https://ik.imagekit.io/cbub6m43fi/murgan%20assets/gallery-2-cafe-overview.webp',
+    width: 1024,
+    height: 576,
+    title: 'The Murgan Courtyard Panorama',
+    category: 'Cafe Overview',
+    categorySlug: 'ambiance',
+    description: 'A bird’s-eye architectural vista highlighting our checkered open-air piazza, illuminated fountain, private pavilions, and two-level lounge.',
+    span: 'lg:col-span-2',
+    aspect: 'aspect-[16/9] lg:aspect-[16/10]',
+  },
+  {
+    image: 'https://ik.imagekit.io/cbub6m43fi/murgan%20assets/gallery-3-creamy-pasta.webp',
+    width: 768,
+    height: 1024,
+    title: 'Royal Truffle & Parmesan Penne',
+    category: 'Artisanal Cuisine',
+    categorySlug: 'food',
+    description: 'Al dente penne folded in a velvety slow-simmered garlic parmesan cream, crowned with crisp heirloom carrot ribbons, pitted olives, and fresh herbs.',
+    span: 'lg:col-span-1',
+    aspect: 'aspect-[4/3] sm:aspect-[3/4] lg:aspect-[4/3]',
+  },
+  {
+    image: 'https://ik.imagekit.io/cbub6m43fi/murgan%20assets/gallery-4-grilled-tortilla-rolls.webp',
+    width: 1024,
+    height: 768,
+    title: 'Charcoal Grilled Tortilla Rolls',
+    category: 'Artisanal Cuisine',
+    categorySlug: 'food',
+    description: 'Golden griddled flatbread wraps stuffed with spiced gourmet fillings, served alongside a hand-whipped garlic aioli swirl and fiery sweet dip.',
+    span: 'lg:col-span-1',
+    aspect: 'aspect-[4/3]',
+  },
+  {
+    image: 'https://ik.imagekit.io/cbub6m43fi/murgan%20assets/gallery-5-signature-kathi-rolls.webp',
+    width: 768,
+    height: 1024,
+    title: 'Monarch’s Heritage Kathi Roll Platter',
+    category: 'Artisanal Cuisine',
+    categorySlug: 'food',
+    description: 'Warm flaky rolls filled with seasoned garden vegetables and slow-cooked house spices, elegantly garnished with black olives and micro-greens.',
+    span: 'lg:col-span-1',
+    aspect: 'aspect-[4/3] sm:aspect-[3/4] lg:aspect-[4/3]',
+  },
+  {
+    image: 'https://ik.imagekit.io/cbub6m43fi/murgan%20assets/gallery-6-crispy-chilli-bites.webp',
+    width: 768,
+    height: 1024,
+    title: 'Crispy Glazed Oriental Bites',
+    category: 'Artisanal Cuisine',
+    categorySlug: 'food',
+    description: 'Golden crispy tossed bites glazed in an aromatic honey-chilli reduction with crunchy scallions, sweet bell peppers, and fresh sliced onion rings.',
+    span: 'lg:col-span-1',
+    aspect: 'aspect-[4/3] sm:aspect-[3/4] lg:aspect-[4/3]',
+  },
+  {
+    image: 'https://ik.imagekit.io/cbub6m43fi/murgan%20assets/gallery-7-peri-fries-combo.webp',
+    width: 1024,
+    height: 768,
+    title: 'Royal Cafe Platter & Artisan Frappes',
+    category: 'Beverages & Bites',
+    categorySlug: 'food',
+    description: 'A feast featuring crispy peri-peri spiced french fries, toasted triple-layer club sandwich, and chilled handcrafted chocolate and caramel frappes.',
+    span: 'lg:col-span-2',
+    aspect: 'aspect-[16/9] lg:aspect-[16/10]',
+  },
+];
+---
+
+<BaseLayout
+  title="Gallery"
+  description="Immerse in the authentic atmosphere and culinary craftsmanship of The Monarch's Mug in Patia, Bhubaneswar. Starlit rooftop dining, grand courtyard, and artisanal gourmet food."
+>
+  <!-- Header Banner -->
+  <section class="bg-brand-green text-brand-cream py-16 sm:py-20 border-b border-brand-gold/30">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-3xl">
+      <span class="text-xs uppercase tracking-widest text-brand-gold font-semibold block mb-2">
+        Visual Splendor
+      </span>
+      <h1 class="font-heading text-4xl sm:text-5xl font-bold tracking-tight text-brand-cream mb-4">
+        Atmosphere & Culinary Gallery
+      </h1>
+      <div class="w-16 h-0.5 bg-brand-gold mx-auto mb-6" />
+      <p class="text-sm sm:text-base text-brand-cream/80 max-w-xl mx-auto leading-relaxed">
+        Step inside The Monarch’s Mug — from our breezy open-air rooftop dining and grand courtyard fountain to chef-crafted culinary creations.
+      </p>
+
+      <!-- Category Filter Pills -->
+      <div class="mt-8 flex flex-wrap justify-center items-center gap-2 sm:gap-3 text-xs font-semibold">
+        <button
+          type="button"
+          class="gallery-filter-btn px-4 py-2 min-h-[40px] rounded-full transition-all duration-200 bg-brand-gold text-brand-green-dark shadow-sm focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none"
+          data-filter="all"
+        >
+          All Visuals ({galleryItems.length})
+        </button>
+        <button
+          type="button"
+          class="gallery-filter-btn px-4 py-2 min-h-[40px] rounded-full transition-all duration-200 bg-brand-green-surface text-brand-cream/90 hover:text-brand-gold hover:bg-brand-green-dark border border-brand-gold/30 focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none"
+          data-filter="rooftop"
+        >
+          Rooftop Dining
+        </button>
+        <button
+          type="button"
+          class="gallery-filter-btn px-4 py-2 min-h-[40px] rounded-full transition-all duration-200 bg-brand-green-surface text-brand-cream/90 hover:text-brand-gold hover:bg-brand-green-dark border border-brand-gold/30 focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none"
+          data-filter="ambiance"
+        >
+          Cafe Architecture
+        </button>
+        <button
+          type="button"
+          class="gallery-filter-btn px-4 py-2 min-h-[40px] rounded-full transition-all duration-200 bg-brand-green-surface text-brand-cream/90 hover:text-brand-gold hover:bg-brand-green-dark border border-brand-gold/30 focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none"
+          data-filter="food"
+        >
+          Artisanal Food (5)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Gallery Grid -->
+  <section class="py-16 sm:py-24 bg-brand-cream">
+    <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+      <div id="gallery-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+        {galleryItems.map((item, index) => (
+          <figure
+            class={`gallery-card group bg-white rounded-xl overflow-hidden border border-brand-gold/25 shadow-subtle hover:shadow-card hover:border-brand-gold/50 transition-all flex flex-col justify-between ${item.span}`}
+            data-category={item.categorySlug}
+          >
+            <div class={`relative overflow-hidden ${item.aspect} bg-brand-green-surface`}>
+              <img
+                src={item.image}
+                alt={item.title}
+                width={item.width}
+                height={item.height}
+                loading={index < 2 ? 'eager' : 'lazy'}
+                decoding={index < 2 ? 'sync' : 'async'}
+                class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <span class="absolute top-3.5 left-3.5 px-3 py-1 rounded-full bg-brand-green-dark/85 text-brand-gold text-[11px] font-semibold tracking-wider uppercase backdrop-blur-md border border-brand-gold/30 shadow-sm">
+                {item.category}
+              </span>
+            </div>
+            <figcaption class="p-5 sm:p-6 flex-grow flex flex-col justify-between">
+              <div>
+                <h2 class="font-heading text-lg sm:text-xl font-bold text-brand-green mb-2 group-hover:text-brand-gold-dark transition-colors">
+                  {item.title}
+                </h2>
+                <p class="text-xs sm:text-sm text-brand-text-muted leading-relaxed">
+                  {item.description}
+                </p>
+              </div>
+              <div class="mt-4 pt-3 border-t border-brand-cream-muted/70 flex items-center justify-between text-xs text-brand-text-muted">
+                <span class="text-brand-gold font-medium">The Monarch's Mug</span>
+                <span class="text-[11px] uppercase tracking-wider text-brand-green font-semibold">Patia, Bhubaneswar</span>
+              </div>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <!-- Experience Callout -->
+      <div class="mt-16 text-center max-w-2xl mx-auto p-8 sm:p-10 rounded-2xl border border-brand-gold/30 bg-white shadow-subtle">
+        <span class="text-xs font-semibold uppercase tracking-widest text-brand-gold block mb-2">Live The Experience</span>
+        <h3 class="font-heading text-2xl sm:text-3xl font-bold text-brand-green mb-3">
+          Savor It In Person Under the Patia Skies
+        </h3>
+        <p class="text-xs sm:text-sm text-brand-text-muted mb-8 leading-relaxed max-w-lg mx-auto">
+          Whether you crave a tranquil starlit dinner on our rooftop or an afternoon chilling in our open courtyard with handcrafted brews, your table is ready.
+        </p>
+        <div class="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <a
+            href="/book"
+            class="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center px-8 py-3.5 rounded-full text-xs sm:text-sm font-bold uppercase tracking-wider bg-brand-gold text-brand-green-dark hover:bg-brand-gold-light transition-all shadow-gold"
+          >
+            Reserve Your Table
+          </a>
+          <a
+            href="/menu"
+            class="w-full sm:w-auto min-h-[48px] inline-flex items-center justify-center px-8 py-3.5 rounded-full text-xs sm:text-sm font-semibold uppercase tracking-wider border border-brand-green text-brand-green hover:bg-brand-green hover:text-brand-cream transition-colors"
+          >
+            Explore Full Menu
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Interactive Lightweight Filter Script (<15 lines vanilla JS) -->
+  <script is:inline>
+    (() => {
+      const filterBtns = document.querySelectorAll('.gallery-filter-btn');
+      const cards = document.querySelectorAll('.gallery-card');
+
+      filterBtns.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const filter = btn.getAttribute('data-filter');
+
+          // Update active button styling
+          filterBtns.forEach((b) => {
+            b.className = 'gallery-filter-btn px-4 py-2 min-h-[40px] rounded-full transition-all duration-200 bg-brand-green-surface text-brand-cream/90 hover:text-brand-gold hover:bg-brand-green-dark border border-brand-gold/30 focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none';
+          });
+          btn.className = 'gallery-filter-btn px-4 py-2 min-h-[40px] rounded-full transition-all duration-200 bg-brand-gold text-brand-green-dark shadow-sm focus-visible:ring-2 focus-visible:ring-brand-gold focus-visible:outline-none';
+
+          // Filter cards with smooth fade
+          cards.forEach((card) => {
+            const category = card.getAttribute('data-category');
+            if (filter === 'all' || category === filter) {
+              card.style.display = 'flex';
+            } else {
+              card.style.display = 'none';
+            }
+          });
+        });
+      });
+    })();
+  </script>
+</BaseLayout>
